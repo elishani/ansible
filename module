@@ -1,3 +1,7 @@
+host: "*"
+
+copy =============================================
+
 tasks:
   - name: copy file to remote host
   copy:
@@ -35,3 +39,76 @@ tskes:
       dest: "$HOME/{{ item }}"    # option 1
       dest: "$HOME"               # option 2
       
+
+command and shell =============================================
+# See the differnt in stdout
+
+tskes:
+  - name: run command with shell
+    shell: echo "Hello, shell!" > /tmp/shell_output
+    register: shell_output
+    
+  - name: run command with command
+    command: echo "Hello, command!" > /tmp/command_output
+    register: command_output
+    
+  - name: debug shell_output
+    debug: var=shell_output
+    
+  - name: debug command_output
+    debug: var=command_output
+    
+ 
+ tskes:
+  - name: use args, environment and loop
+    shell: echo "Hello, World!" > $TARGET
+    args:
+      environment:
+        TARGET: "{{ item }}"
+      loop:
+        - test_file1
+        - test_file2
+    register: shell_output
+    
+
+  - name: shell problem
+    vars:
+      message: hacked > /tmp/hacked && echo hacked
+    takes:
+      - name: echo content to test file
+        shell: "echo {{ message | quote }} > /tmp/test_file" 
+        
+  yun =============================================
+  
+  tasks:
+    - name: install epel-release
+    yum:
+      name: install epel-release
+      state: present
+      update_cache: true
+    become: true
+    when: ansible_os_family =='RedHat'  # or on hosts  give redhat machines group
+    - name: install epel-release
+    yum:
+      name: instll redis 
+        - redis
+        - python-redis
+      state: present
+      update_cache: true
+    become: true
+    
+    tasks:
+    - name: install ruby
+      yum:  
+        name: ryby-2.2.2648-33el7_4
+        state: present
+      update_cache: true
+    become: true
+    
+    
+    
+    
+    
+    
+    
+    
