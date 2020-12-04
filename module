@@ -1,0 +1,37 @@
+tasks:
+  - name: copy file to remote host
+  copy:
+      src: {{ item }}
+      dest: "$HOME/{{ item }}"
+      owenr: root
+      group: root
+      mode: 0600
+    become: true
+    loop:
+      - test_file
+      - test_file1
+
+
+tskes:
+- name: copy file ON remote host
+  copy:
+      src: "$HOME/test_file"
+      dest: "$HOME/test_file.copy"
+      remote_src: true
+
+
+tskes:
+  - name: write content to  file
+    copy:
+      dest: "$HOME/test_file"
+      content: "Hello world"
+      
+      
+tskes:
+  - name: copy directory to remote host
+    copy: 
+      src: tset_dir         #option 1
+      src: tset_dir/        #option 2
+      dest: "$HOME/{{ item }}"    # option 1
+      dest: "$HOME"               # option 2
+      
