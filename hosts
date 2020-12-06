@@ -1,0 +1,43 @@
+[database]
+db-[1:8].example.com
+
+---
+
+[atlnta]
+host1
+host2
+
+[raleigh]
+host3
+host4
+
+[southeast:children]
+atlnta
+raleigh
+
+[southeast:vars]
+escape_pods=2
+
+---
+
+[group_a]
+sever1 ansible_host=203.0.113.111
+sever2 ansible_host=203.0.113.112
+
+[group_b]
+sever3 ansible_host=203.0.113.113
+sever4 ansible_host=sever_hostname
+
+[group_a:vars]
+ansible_user=sammy
+
+[group_b:vars]
+ansible_user=myuser
+
+---
+
+
+
+
+
+# ansible-inventory -i inventory --list
