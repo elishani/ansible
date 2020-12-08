@@ -106,7 +106,18 @@ tskes:
     become: true
     
     
-    
+ ---
+
+- hosts: test
+  gather_facts: no
+
+  tasks:
+    - name: create
+      file:
+        src: /tmp/elisrc
+        dest: /tmp/elilink
+        force: yes
+        state: link   
     
     
     
