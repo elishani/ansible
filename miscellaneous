@@ -35,5 +35,15 @@
     - local_action: copy content= dest=file
     
     
-    
+   - name: Go to the folder and execute command
+  command: chdir=/opt/tools/temp ls
+  
+  
+  - hosts: loc
+  tasks:
+  - name: Ansible command module with chdir and executable parameters
+    command: ls -lrt
+    args:
+      chdir: /home/mdtutorials2/command_chdir_example
+      executable: /bin/bash
     
