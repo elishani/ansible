@@ -1,1 +1,39 @@
 
+- hosts: me
+  tasks:
+  - name: get difference of two files
+    command: >
+      diff test_user1 test_user2
+      chdir=/home/vagrant/basicansible/tempcopy
+    register: difference
+    failed_when: difference.rc > 1
+    changed_when: difference.rc == 1
+
+  - name: debug output
+    debug: var=difference.stdout
+    
+    
+    - shell: /usr/bin/your_command >> output.log
+    
+    
+    - name: shell command
+  shell: my_shell_command
+  register: myshell_output
+- name: copy the output to a local file
+  copy:
+    content: "{{ myshell_output.stdout }}"
+    dest: "/tmp/hello.txt"
+  delegate_to: localhost
+  
+  
+  ---
+- hosts: localhost
+  tasks:
+    - shell: /tmp/foo
+      register: foo_result
+      ignore_errors: True
+    - local_action: copy content= dest=file
+    
+    
+    
+    
