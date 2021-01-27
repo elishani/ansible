@@ -1,3 +1,15 @@
+---
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: "Only show diff between test1.txt & test2.txt" 
+      copy:
+        src: /tmp/test2.txt
+        dest: /tmp/test1.txt
+      check_mode: yes
+      diff: yes
+
 - name: change dir recrusivly
   file:
     path: "{{ path }}"
