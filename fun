@@ -1,3 +1,17 @@
+
+---
+- hosts: all
+  gather_facts: false
+  vars:
+    ssh_key: '/root/playbooks/files/laptop_ssh_key'
+  tasks:
+    - name: copy ssh key
+      authorized_key:
+        key: "{{ lookup('file', ssh_key) }}"
+        user: root
+
+
+
 ---
 - hosts: localhost
   gather_facts: no
